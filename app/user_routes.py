@@ -6,4 +6,6 @@ user=Blueprint('user',__name__)
 @user.route('/dashborad')
 @login_required
 def dashboard():
+
   return render_template('user_dashboard.html')
+

@@ -1,3 +1,7 @@
 Flask 
 Flask-SQLAlchemy
+<<<<<<< HEAD
 Flask-Login 
+=======
+Flask-Login 
+>>>>>>> 93e9ea0 (Added project files)

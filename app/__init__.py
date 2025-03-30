@@ -21,4 +21,8 @@ def create_app():
   app.register_blueprint(user, url_prefix='/user')
   app.register_blueprint(quiz, url_prefix='/quiz')
 
+
   return app 
+
+
+

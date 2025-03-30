@@ -13,21 +13,18 @@ def create_app():
     db.init_app(app)
     login_manager.init_app(app)
 
-    from .models import User 
+    from .models import User  
 
     @login_manager.user_loader
     def load_user(user_id):
         return User.query.get(int(user_id))
 
-
     from .routes import main  
-    from .admin_routes import admin  
-    from .user_routes import user  
     from .quiz_routes import quiz  
+    from .user_routes import user  
 
-    app.register_blueprint(main)
-    app.register_blueprint(admin, url_prefix='/admin')
-    app.register_blueprint(user, url_prefix='/user')
-    app.register_blueprint(quiz, url_prefix='/quiz')
+    app.register_blueprint(main)  
+    app.register_blueprint(quiz, url_prefix='/quiz')  
+    app.register_blueprint(user, url_prefix='/user') 
 
     return app

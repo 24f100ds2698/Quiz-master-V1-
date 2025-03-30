@@ -17,7 +17,7 @@ def create_app():
   from .quiz_routes import quiz
 
   app.register_blueprint(main)
-  app.register_blueprint(admin, url_prefix='admin')
+  app.register_blueprint(admin, url_prefix='/admin')
   app.register_blueprint(user, url_prefix='/user')
   app.register_blueprint(quiz, url_prefix='/quiz')
 

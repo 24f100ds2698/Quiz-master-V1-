@@ -19,7 +19,7 @@ def create_app():
     def load_user(user_id):
         return User.query.get(int(user_id))
 
-   
+
     from .routes import main  
     from .admin_routes import admin  
     from .user_routes import user  

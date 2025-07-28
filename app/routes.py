@@ -16,9 +16,26 @@ def about():
 def start_quiz():
     return render_template('quiz.html') 
 
-@main.route('/login')
+from flask import request, redirect, url_for, flash
+from flask_login import login_user
+from .models import User  # or Participant/Admin depending on your logic
+
+@main.route('/login', methods=['GET', 'POST'])
 def login():
-    return render_template('login.html')  
+    if request.method == 'POST':
+        email_or_username = request.form.get('email')
+        password = request.form.get('password')
+
+        user = User.query.filter_by(username=email_or_username).first()
+        if user and user.password == password:  # NOTE: Add hashing later
+            login_user(user)
+            flash("Logged in successfully.", "success")
+            return redirect(url_for('user.dashboard'))  # or admin.dashboard
+        else:
+            flash("Invalid credentials", "danger")
+
+    return render_template('login.html')
+
 
 @main.route('/dashboard')
 @login_required  

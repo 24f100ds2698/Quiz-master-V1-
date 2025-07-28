@@ -1,0 +1,15 @@
+# macOS system files
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environments
+venv/
+
+# Flask instance folder
+instance/
+
+# SQLite DB (optional)
+*.db

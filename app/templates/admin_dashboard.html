@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f8f9fa;
+            padding: 30px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 40px;
+        }
+
+        .subject-box {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+
+        h4 {
+            color: #4CAF50;
+        }
+
+        .admin-link {
+            color: #2196F3;
+            text-decoration: none;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .admin-link:hover {
+            text-decoration: underline;
+        }
+
+        .add-subject {
+            display: block;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .add-subject a {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .add-subject a:hover {
+            background-color: #45a049;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Admin Dashboard</h2>
+
+    <div class="add-subject">
+        <a href="{{ url_for('admin.add_subject') }}">+ Add Subject</a>
+    </div>
+
+    {% for subject in subjects %}
+        <div class="subject-box">
+            <h4>{{ subject.name }}</h4>
+            <a class="admin-link" href="{{ url_for('admin.add_chapter', subject_id=subject.id) }}">+ Add Chapter</a>
+            <ul>
+                {% for chapter in subject.chapters %}
+                    <li>
+                        <strong>{{ chapter.name }}</strong>
+                        <a class="admin-link" href="{{ url_for('admin.add_quiz', chapter_id=chapter.id) }}">[+ Quiz]</a>
+                        {% for quiz in chapter.quizzes %}
+                            <br>– Quiz on {{ quiz.date }}
+                            <a class="admin-link" href="{{ url_for('admin.add_question', quiz_id=quiz.id) }}">[+ Questions]</a>
+                        {% endfor %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+
+</body>
+</html>
+

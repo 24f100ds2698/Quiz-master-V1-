@@ -1,19 +1,113 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quiz</title>
+    <style>
+        body {
+            font-family: Arial;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 95vh;
+            background-color: #eef2f3;
+            margin: 0;
+        }
+        .quiz-box {
+            background: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            width: 550px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .question-text {
+            color: black;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .option {
+            margin: 12px 0;
+            font-size: 16px;
+        }
+        .option input[type="radio"] {
+            margin-right: 10px;
+        }
+        .buttons {
+            margin-top: 25px;
+            display: flex;
+            justify-content: space-between;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        .next {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .prev {
+            background-color: #ff9800;
+            color: white;
+        }
+        .submit {
+            background-color: #2196F3;
+            color: white;
+        }
+        .debug {
+            font-size: 14px;
+            color: red;
+            margin-bottom: 15px;
+            background-color: #ffeeee;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-box">
+        <h2>Question {{ index }} of {{ total }}</h2>
 
-{% block content %}
-<div class="container">
-    <h1>Start Your Quiz!</h1>
-    
-    <h2>Available Quizzes</h2>
-    <ul class="list-group">
-        {% for quiz in quizzes %}
-        <li class="list-group-item">
-            <h5>{{ quiz.title }}</h5>
-            <p>{{ quiz.description }}</p>
-            <a href="{{ url_for('quiz.take_quiz', quiz_id=quiz.id) }}" class="btn btn-primary">Start Quiz</a>
-        </li>
-        {% endfor %}
-    </ul>
-</div>
-{% endblock %}
+        <!-- Debug: Shows raw question object -->
+        <div class="debug">
+            DEBUG: {{ question }}
+        </div>
+        <p style="color:red;">DEBUG: {{ question }}</p>
 
+        <form method="POST">
+            <div class="question-text">{{ question.question_text }}</div>
+
+            <div class="option">
+                <input type="radio" name="option" value="A" {% if selected == 'A' %}checked{% endif %}> {{ question.option_a }}
+            </div>
+            <div class="option">
+                <input type="radio" name="option" value="B" {% if selected == 'B' %}checked{% endif %}> {{ question.option_b }}
+            </div>
+            <div class="option">
+                <input type="radio" name="option" value="C" {% if selected == 'C' %}checked{% endif %}> {{ question.option_c }}
+            </div>
+            <div class="option">
+                <input type="radio" name="option" value="D" {% if selected == 'D' %}checked{% endif %}> {{ question.option_d }}
+            </div>
+
+            <div class="buttons">
+                {% if index > 1 %}
+                    <button name="prev" class="prev">Previous</button>
+                {% endif %}
+                {% if index < total %}
+                    <button name="next" class="next">Next</button>
+                {% else %}
+                    <button name="submit" class="submit">Submit</button>
+                {% endif %}
+            </div>
+        </form>
+    </div>
+</body>
+</html>

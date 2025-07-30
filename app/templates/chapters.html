@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+  <h2>Chapters</h2>
+
+  <div class="list-group mt-4">
+    {% for chapter in chapters %}
+    <a href="{{ url_for('user.quizzes', chapter_id=chapter.id) }}" class="list-group-item list-group-item-action">
+
+        {{ chapter.name }}
+      </a>
+    {% endfor %}
+  </div>
+
+  <a href="{{ url_for('user.dashboard') }}" class="btn btn-secondary mt-4">← Back to Dashboard</a>
+</div>
+{% endblock %}

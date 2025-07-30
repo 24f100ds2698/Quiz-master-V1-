@@ -1,9 +1,11 @@
 import os
 
-class Config:
-  SECRET_KEY=os.environ.get('SECRET_KEY') or 'your_secret_key'
-  SQLALCHEMY_DATABASE_URI='sqlite:///quizmaster.db'
+basedir = os.path.abspath(os.path.dirname(__file__))
 
-  SQLALCHEMY_TRACK_MODIFICATIONS= False 
+class Config:
+    SECRET_KEY = os.environ.get('SECRET_KEY') or 'your_secret_key'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'quizmaster.db')
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
 
 

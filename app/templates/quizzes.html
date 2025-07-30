@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Available Quizzes</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f0f2f5;
+      padding: 40px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    .quiz-card {
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin: 20px auto;
+      width: 70%;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      text-align: left;
+    }
+
+    .quiz-card p {
+      font-size: 18px;
+      color: #555;
+    }
+
+    .quiz-card a {
+      float: right;
+      text-decoration: none;
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 18px;
+      border-radius: 6px;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .quiz-card a:hover {
+      background-color: #388e3c;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 30px;
+      text-decoration: none;
+      color: #007BFF;
+      font-weight: bold;
+    }
+
+    .back-link:hover {
+      color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Available Quizzes</h2>
+
+  {% for quiz in quizzes %}
+    <div class="quiz-card">
+      <p><strong>Quiz ID:</strong> {{ quiz.id }} | <strong>Date:</strong> {{ quiz.date }} | <strong>Duration:</strong> {{ quiz.duration }}
+      <a href="{{ url_for('user.take_quiz', quiz_id=quiz.id) }}">Start Quiz</a></p>
+    </div>
+  {% endfor %}
+
+  <a href="{{ url_for('user.dashboard') }}" class="back-link">← Back to Dashboard</a>
+
+</body>
+</html>
